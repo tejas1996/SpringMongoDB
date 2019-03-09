@@ -1,4 +1,4 @@
-package hello;
+package mongodata;
 
 import org.springframework.data.annotation.Id;
 
