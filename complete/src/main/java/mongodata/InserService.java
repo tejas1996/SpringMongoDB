@@ -1,13 +1,19 @@
 package mongodata;
 
+import mongodata.dataImports.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class InserService {
 
     @Autowired
     private CustomerRepository repository;
+
+    @Autowired
+    private ExcelReader excelReader;
 
     public void insert() throws Exception {
 
@@ -33,6 +39,16 @@ public class InserService {
         System.out.println("Customers found with findByLastName('Smith'):");
         System.out.println("--------------------------------");
 
+
+    }
+
+    public void insertDataArray(ArrayList<Customer> arrayList) throws Exception {
+
+        for (Customer customer : arrayList) {
+            repository.save(customer);
+        }
+
+        // fetch all customer
 
     }
 

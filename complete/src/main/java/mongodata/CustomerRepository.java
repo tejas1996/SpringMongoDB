@@ -1,8 +1,9 @@
 package mongodata;
 
-import java.util.List;
-
+import mongodata.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {
 
