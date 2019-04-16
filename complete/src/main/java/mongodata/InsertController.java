@@ -10,7 +10,7 @@ public class InsertController {
     @Autowired
     InserService inserService;
 
-    @RequestMapping("insert")
+    @RequestMapping("insert2")
     public void insert(){
 
         try {
