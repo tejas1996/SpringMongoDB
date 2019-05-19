@@ -1,5 +1,6 @@
 package mongodata;
 
+import mongodata.objects.FundRaisingSumm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +19,9 @@ public class RetrieveController {
 
         StringBuilder stringBuilder = new StringBuilder("data is \n");
         try {
-            List<Customer> result = retrieveService.getAll();
-            for (Customer customer : result) {
-                stringBuilder.append(customer.toString());
+            List<FundRaisingSumm> result = retrieveService.getAll();
+            for (FundRaisingSumm year : result) {
+                stringBuilder.append(year.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,8 +29,4 @@ public class RetrieveController {
         return stringBuilder.toString();
     }
 
-    @RequestMapping("/getRow")
-    public String getRow(@RequestParam String name){
-        return retrieveService.getOne(name);
-    }
 }

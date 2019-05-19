@@ -1,6 +1,7 @@
 package mongodata;
 
 import mongodata.dataImports.ExcelReader;
+import mongodata.objects.FundRaisingSumm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,42 +11,23 @@ import java.util.ArrayList;
 public class InserService {
 
     @Autowired
-    private CustomerRepository repository;
+    private FundRaisingRepo repository;
 
-    @Autowired
-    private ExcelReader excelReader;
-
-    public void insert() throws Exception {
+    public void insert() {
 
         repository.deleteAll();
-
-        // save a couple of customers
-        repository.save(new Customer("Tejas", "Dond"));
-        repository.save(new Customer("Gaurav", "Massand"));
-
-        // fetch all customers
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (Customer customer : repository.findAll()) {
-            System.out.println(customer);
+        for (FundRaisingSumm year : repository.findAll()) {
+            System.out.println(year);
         }
-        System.out.println();
 
-        // fetch an individual customer
-        System.out.println("Customer found with findByFirstName('Alice'):");
-        System.out.println("--------------------------------");
-        System.out.println(repository.findByFirstName("Alice"));
-
-        System.out.println("Customers found with findByLastName('Smith'):");
-        System.out.println("--------------------------------");
 
 
     }
 
-    public void insertDataArray(ArrayList<Customer> arrayList) throws Exception {
+    public void insertDataArray(ArrayList<FundRaisingSumm> arrayList) throws Exception {
 
-        for (Customer customer : arrayList) {
-            repository.save(customer);
+        for (FundRaisingSumm year: arrayList) {
+            repository.save(year);
         }
 
         // fetch all customer

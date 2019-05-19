@@ -19,26 +19,12 @@ public class ManualController {
 
     @RequestMapping("insert")
     public void insert(@RequestParam String first, @RequestParam String last){
-        try {
-            insertManualData.insertData(first,last);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     @RequestMapping("get")
     public String getAll(){
-        StringBuilder stringBuilder = new StringBuilder("data is \n");
-        try {
-            List<Customer> result = getallService.getAll();
-            for (Customer customer : result) {
-                stringBuilder.append(customer.toString());
-                stringBuilder.append("<br />");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
+        return null;
     }
 
 }

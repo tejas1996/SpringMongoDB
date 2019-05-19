@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import mongodata.service.AmazonS3ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,13 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService
         } catch (IOException | AmazonServiceException ex) {
             logger.error("error [" + ex.getMessage() + "] occurred while uploading [" + fileName + "] ");
         }
+    }
+
+    @Override
+    public S3Object downloadFileFromS3Bucket(String fileName, String bucketName) {
+        S3Object ob = amazonS3.getObject(bucketName,fileName);
+        return ob;
+
     }
 
     @Async

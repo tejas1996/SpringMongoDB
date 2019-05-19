@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <!-- JQuery import -->
@@ -9,14 +12,13 @@
 <body>
 
 <!-- Upload file form -->
-    <label >First Nmae:</label>
-    <input id="first"  name="first" />
-    <br />
-    <label >Last Name</label>
-    <input id="last"  name="last" />
+<form id="upload-file-form">
+    <label for="upload-file-input">Upload your file:</label>
+    <input id="upload-file-input" type="file" name="file" accept="*" />
     <br />
     <button id = "uploadButton"> Upload </button>
     <span id="upload-file-message"></span>
+</form>
 <br />
 <hr />
 
@@ -26,33 +28,33 @@
     // bind the on-change event for the input element (triggered when a file
     // is chosen)
     $(document).ready(function() {
-      $("#uploadButton").on("click", uploadFile);
+        $("#uploadButton").on("click", uploadFile);
     });
 
     /**
      * Upload the file sending it via Ajax at the Spring Boot server.
      */
-    function uploadFile(e) {
-
-      var first = document.getElementById("first").value;
-      var last = document.getElementById("last").value  ;
-      console.log(first + " " + last);
-       $.ajax({
-         url: "/insert?first=" + first + "&last=" + last,
-         type: "GET",
-         success: function () {
-           // Handle upload success
-           $("#upload-file-message").text("data succesfully uploaded");
-         },
-         error: function () {
-           // Handle upload error
-           $("#upload-file-message").text(
-               "Sorry i am not well");
-         }
-       });
-
-    }
-  </script>
+    function uploadFile() {
+        $.ajax({
+            url: "/files",
+            type: "POST",
+            data: new FormData($("#upload-file-form")[0]),
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function () {
+                // Handle upload success
+                $("#upload-file-message").text("File succesfully uploaded");
+            },
+            error: function () {
+                // Handle upload error
+                $("#upload-file-message").text(
+                    "File not uploaded (perhaps it's too much big)");
+            }
+        });
+    } // function uploadFile
+</script>
 
 </body>
 

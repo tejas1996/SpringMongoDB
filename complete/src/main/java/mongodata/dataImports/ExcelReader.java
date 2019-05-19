@@ -1,6 +1,6 @@
 package mongodata.dataImports;
 
-import mongodata.Customer;
+import mongodata.objects.FundRaisingSumm;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +16,7 @@ public class ExcelReader {
 
     public static final String SAMPLE_XLSX_FILE_PATH = "/home/tejas/Desktop/demo.xlsx";
 
-    public static ArrayList<Customer> getDataFromExcel(File file) throws Exception {
+    public static ArrayList<FundRaisingSumm> getDataFromExcel(File file) throws Exception {
 
         Workbook workbook = WorkbookFactory.create(file);
         ArrayList<ArrayList<String>> aList  = new ArrayList<>();
@@ -36,7 +36,7 @@ public class ExcelReader {
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
 
-            if (rowNumber == 0) {
+            if (rowNumber < 5) {
                 rowNumber++;
                 continue;
             }
@@ -53,19 +53,19 @@ public class ExcelReader {
         }
         System.out.println(aList);
 
-        ArrayList<Customer> customerList = new ArrayList<>();
+        ArrayList<FundRaisingSumm> customerList = new ArrayList<>();
         for (int i = 0; i < aList.size(); i++) {
-            Customer customer = new Customer(aList.get(i).get(0), aList.get(i).get(1));
-            customerList.add(customer);
+            FundRaisingSumm year = new FundRaisingSumm(aList.get(i).get(0), aList.get(i).get(1),aList.get(i).get(2),aList.get(i).get(3),aList.get(i).get(4),aList.get(i).get(5));
+            customerList.add(year);
         }
 
         workbook.close();
         return customerList;
     }
 
-    public ArrayList<Customer> getDataFfromFile(MultipartFile file) throws Exception {
+    public ArrayList<FundRaisingSumm> getDataFfromFile(MultipartFile file) throws Exception {
         File filenew = convert(file);
-        ArrayList<Customer> result = getDataFromExcel(filenew);
+        ArrayList<FundRaisingSumm> result = getDataFromExcel(filenew);
         return result;
     }
 

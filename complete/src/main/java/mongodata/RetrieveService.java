@@ -1,5 +1,6 @@
 package mongodata;
 
+import mongodata.objects.FundRaisingSumm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +10,13 @@ import java.util.List;
 public class RetrieveService {
 
     @Autowired
-    private CustomerRepository repository;
+    private FundRaisingRepo repository;
 
-    public List<Customer> getAll() throws Exception {
+    public List<FundRaisingSumm> getAll() throws Exception {
 
         // fetch all customers
-        for (Customer customer : repository.findAll()) {
-            System.out.println(customer);
+        for (FundRaisingSumm year: repository.findAll()) {
+            System.out.println(year);
         }
 
         return repository.findAll();
@@ -23,11 +24,6 @@ public class RetrieveService {
 
     }
 
-    public String getOne(String firstName) {
-
-        // fetch an individual customer
-        return repository.findByFirstName(firstName).toString();
-    }
 
 
 }
