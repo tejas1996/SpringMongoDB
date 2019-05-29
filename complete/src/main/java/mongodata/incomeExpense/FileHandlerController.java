@@ -1,9 +1,7 @@
-package mongodata.controller;
+package mongodata.incomeExpense;
 
 import com.amazonaws.services.s3.model.S3Object;
-import mongodata.Customer;
 import mongodata.InserService;
-import mongodata.InsertController;
 import mongodata.dataImports.ExcelReader;
 import mongodata.objects.FundRaisingSumm;
 import mongodata.service.AmazonS3ClientService;
@@ -11,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;

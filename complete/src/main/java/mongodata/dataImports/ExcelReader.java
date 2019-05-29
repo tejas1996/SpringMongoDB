@@ -16,7 +16,7 @@ public class ExcelReader {
 
     public static final String SAMPLE_XLSX_FILE_PATH = "/home/tejas/Desktop/demo.xlsx";
 
-    public static ArrayList<FundRaisingSumm> getDataFromExcel(File file) throws Exception {
+    public static ArrayList<ArrayList<String>> getDataFromExcel(File file, int start) throws Exception {
 
         Workbook workbook = WorkbookFactory.create(file);
         ArrayList<ArrayList<String>> aList  = new ArrayList<>();
@@ -36,7 +36,7 @@ public class ExcelReader {
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
 
-            if (rowNumber < 5) {
+            if (rowNumber < start) {
                 rowNumber++;
                 continue;
             }
@@ -52,21 +52,21 @@ public class ExcelReader {
             aList.add(temp);
         }
         System.out.println(aList);
-
-        ArrayList<FundRaisingSumm> customerList = new ArrayList<>();
-        for (int i = 0; i < aList.size(); i++) {
-            FundRaisingSumm year = new FundRaisingSumm(aList.get(i).get(0), aList.get(i).get(1),aList.get(i).get(2),aList.get(i).get(3),aList.get(i).get(4),aList.get(i).get(5));
-            customerList.add(year);
-        }
-
         workbook.close();
-        return customerList;
+        return aList;
     }
 
-    public ArrayList<FundRaisingSumm> getDataFfromFile(MultipartFile file) throws Exception {
+    public ArrayList<FundRaisingSumm> getDataFfromFile(MultipartFile file, int begin) throws Exception {
         File filenew = convert(file);
-        ArrayList<FundRaisingSumm> result = getDataFromExcel(filenew);
-        return result;
+        int start=begin;
+        ArrayList<ArrayList<String>> object = getDataFromExcel(filenew,start);
+
+        ArrayList<FundRaisingSumm> fundRaisingList = new ArrayList<>();
+        for (int i = 0; i < object.size(); i++) {
+            FundRaisingSumm year = new FundRaisingSumm(object.get(i).get(0), object.get(i).get(1),object.get(i).get(2),object.get(i).get(3),object.get(i).get(4),object.get(i).get(5));
+            fundRaisingList.add(year);
+        }
+        return fundRaisingList;
     }
 
     public File convert(MultipartFile file) throws IOException {
